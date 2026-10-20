@@ -1,0 +1,302 @@
+#!/usr/bin/env bash
+# convert.sh — Convert magic-powers agents for other AI coding tools
+set -euo pipefail
+REPO="$(cd "$(dirname "$0")/.." && pwd)"
+
+find_agents() { find "$REPO/agents" -name "*.md" -type f | xargs grep -l "^name:" 2>/dev/null | sort; }
+find_skills() { find "$REPO/skills" -name "SKILL.md" -type f | sort; }
+
+strip_frontmatter() { awk '/^---$/{c++; next} c>=2' "$1"; }
+
+get_field() { grep "^$2:" "$1" 2>/dev/null | head -1 | sed "s/^$2: *\"*//;s/\"*$//"; }
+
+convert_cursor() {
+  local out="$REPO/integrations/cursor/rules"
+  rm -rf "$out" && mkdir -p "$out"
+  for f in $(find_agents); do
+    local name=$(get_field "$f" name)
+    local desc=$(get_field "$f" description)
+    { echo "---"; echo "description: $desc"; echo "globs: []"; echo "alwaysApply: false"; echo "---"; echo ""; strip_frontmatter "$f"; } > "$out/${name}.mdc"
+  done
+  for f in $(find_skills); do
+    local name=$(get_field "$f" name)
+    local desc=$(get_field "$f" description)
+    { echo "---"; echo "description: $desc"; echo "globs: []"; echo "alwaysApply: false"; echo "---"; echo ""; strip_frontmatter "$f"; } > "$out/${name}.mdc"
+  done
+  echo "Cursor: $(( $(find_agents | wc -l) + $(find_skills | wc -l) )) rules → integrations/cursor/rules/"
+}
+
+convert_copilot() {
+  local out="$REPO/integrations/copilot/agents"
+  rm -rf "$out" && mkdir -p "$out"
+  for f in $(find_agents); do
+    local name=$(get_field "$f" name)
+    cp "$f" "$out/${name}.md"
+  done
+  for f in $(find_skills); do
+    local name=$(get_field "$f" name)
+    cp "$f" "$out/${name}.md"
+  done
+  echo "Copilot: $(( $(find_agents | wc -l) + $(find_skills | wc -l) )) files → integrations/copilot/agents/"
+}
+
+convert_aider() {
+  mkdir -p "$REPO/integrations/aider"
+  { echo "# Magic Powers — Agent Conventions & Skills"; echo "";
+    echo "## Agents"; echo ""
+    for f in $(find_agents); do
+      echo "### $(get_field "$f" name)"; echo ""; strip_frontmatter "$f"; echo ""; echo "---"; echo ""
+    done
+    echo "## Skills"; echo ""
+    for f in $(find_skills); do
+      local name=$(get_field "$f" name)
+      echo "### ${name}"; echo ""; strip_frontmatter "$f"; echo ""; echo "---"; echo ""
+    done
+  } > "$REPO/integrations/aider/CONVENTIONS.md"
+  echo "Aider: integrations/aider/CONVENTIONS.md"
+}
+
+convert_windsurf() {
+  mkdir -p "$REPO/integrations/windsurf"
+  { echo "# Magic Powers — Agents & Skills"; echo "";
+    echo "## Agents"; echo ""
+    for f in $(find_agents); do
+      echo "### $(get_field "$f" name)"; echo ""; strip_frontmatter "$f"; echo ""
+    done
+    echo "## Skills"; echo ""
+    for f in $(find_skills); do
+      local name=$(get_field "$f" name)
+      echo "### ${name}"; echo ""; strip_frontmatter "$f"; echo ""
+    done
+  } > "$REPO/integrations/windsurf/.windsurfrules"
+  echo "Windsurf: integrations/windsurf/.windsurfrules"
+}
+
+convert_gemini() {
+  rm -rf "$REPO/integrations/gemini-cli/skills" && mkdir -p "$REPO/integrations/gemini-cli/skills"
+  for f in $(find_agents); do
+    local name=$(get_field "$f" name)
+    local desc=$(get_field "$f" description)
+    local dir="$REPO/integrations/gemini-cli/skills/magic-${name}"
+    mkdir -p "$dir"
+    { echo "---"; echo "name: magic-${name}"; echo "description: $desc"; echo "---"; echo ""; strip_frontmatter "$f"; } > "$dir/SKILL.md"
+  done
+  for f in $(find_skills); do
+    local name=$(get_field "$f" name)
+    local desc=$(get_field "$f" description)
+    local dir="$REPO/integrations/gemini-cli/skills/${name}"
+    mkdir -p "$dir"
+    cp "$f" "$dir/SKILL.md"
+  done
+  echo "Gemini CLI: $(( $(find_agents | wc -l) + $(find_skills | wc -l) )) skills → integrations/gemini-cli/skills/"
+}
+
+convert_codex() {
+  rm -rf "$REPO/integrations/codex/skills" && mkdir -p "$REPO/integrations/codex/skills"
+  # Convert agents to Codex skills
+  for f in $(find_agents); do
+    local name=$(get_field "$f" name)
+    local desc=$(get_field "$f" description)
+    local dir="$REPO/integrations/codex/skills/magic-${name}"
+    mkdir -p "$dir"
+    { echo "---"; echo "name: magic-${name}"; echo "description: $desc"; echo "---"; echo ""; strip_frontmatter "$f"; } > "$dir/SKILL.md"
+  done
+  # Convert skills to Codex skills
+  for f in $(find_skills); do
+    local name=$(get_field "$f" name)
+    local dir="$REPO/integrations/codex/skills/${name}"
+    mkdir -p "$dir"
+    cp "$f" "$dir/SKILL.md"
+  done
+
+  # Generate AGENTS.md for ~/.codex/AGENTS.md
+  mkdir -p "$REPO/integrations/codex"
+  { echo "# Magic Powers — Codex Instructions"
+    echo ""
+    echo "Magic Powers provides specialized agent skills for cost-optimized AI development."
+    echo "Skills are installed in your Codex skills directory and auto-discovered."
+    echo ""
+    echo "## Available Skills"
+    echo ""
+    echo "Invoke explicitly with \`\$magic-<name>\`, or describe your task and Codex picks the right one."
+    echo ""
+    for f in $(find_agents); do
+      local name=$(get_field "$f" name)
+      local desc=$(get_field "$f" description)
+      echo "- **\$magic-${name}**: ${desc}"
+    done
+    echo ""
+    echo "## Recommended Workflow"
+    echo ""
+    echo "1. Complex features → \`\$magic-architect\` to plan before coding"
+    echo "2. Bugs & failures → \`\$magic-debugger\` for systematic root cause analysis"
+    echo "3. Before merging → \`\$magic-reviewer\` for code review"
+    echo "4. Security concerns → \`\$magic-security-reviewer\` before deploying"
+    echo "5. Slow queries / schema → \`\$magic-database-optimizer\`"
+    echo "6. Docs & READMEs → \`\$magic-technical-writer\`"
+  } > "$REPO/integrations/codex/AGENTS.md"
+
+  echo "Codex: $(( $(find_agents | wc -l) + $(find_skills | wc -l) )) skills → integrations/codex/skills/"
+  echo "Codex: AGENTS.md → integrations/codex/AGENTS.md"
+}
+
+convert_kiro() {
+  local out="$REPO/integrations/kiro/steering"
+  rm -rf "$out" && mkdir -p "$out"
+  for f in $(find_agents); do
+    local name=$(get_field "$f" name)
+    local desc=$(get_field "$f" description)
+    { echo "---"; echo "inclusion: auto"; echo "name: magic-${name}"; echo "description: $desc"; echo "---"; echo ""; strip_frontmatter "$f"; } > "$out/magic-${name}.md"
+  done
+  for f in $(find_skills); do
+    local name=$(get_field "$f" name)
+    local desc=$(get_field "$f" description)
+    # using-magic-powers loads always (session hook equivalent)
+    local mode="auto"
+    [ "$name" = "using-magic-powers" ] && mode="always"
+    { echo "---"; echo "inclusion: ${mode}"; echo "name: ${name}"; echo "description: $desc"; echo "---"; echo ""; strip_frontmatter "$f"; } > "$out/${name}.md"
+  done
+  echo "Kiro: $(( $(find_agents | wc -l) + $(find_skills | wc -l) )) steering files → integrations/kiro/steering/"
+}
+
+convert_kiro_agents() {
+  local out="$REPO/integrations/kiro/agents"
+  rm -rf "$out" && mkdir -p "$out"
+  local count=0
+  for f in $(find_agents); do
+    local name=$(get_field "$f" name)
+    local desc=$(get_field "$f" description)
+    local tools_raw=$(get_field "$f" tools)
+    local prompt_content=$(strip_frontmatter "$f")
+
+    # Map Claude Code tool names → Kiro tool names
+    local allowed=""
+    if [ -n "$tools_raw" ]; then
+      allowed=$(echo "$tools_raw" | tr ',' '\n' | while read -r t; do
+        t=$(echo "$t" | tr -d ' ')
+        case "$t" in
+          Read)        printf '"fs_read",' ;;
+          Write|Edit)  printf '"fs_write",' ;;
+          Bash)        printf '"execute_bash",' ;;
+          Grep)        printf '"grep",' ;;
+          Glob)        printf '"glob",' ;;
+          WebFetch)    printf '"web_fetch",' ;;
+          WebSearch)   printf '"web_search",' ;;
+        esac
+      done | sed 's/,$//')
+    fi
+    [ -z "$allowed" ] && allowed='"fs_read","grep","glob","thinking"'
+
+    # JSON-escape via python3
+    local prompt_escaped
+    prompt_escaped=$(printf '%s' "$prompt_content" | python3 -c "
+import sys, json
+content = sys.stdin.read()
+print(json.dumps(content)[1:-1])
+")
+
+    # Write JSON
+    printf '{"name":"magic-%s","description":"%s","prompt":"%s","tools":["fs_read","fs_write","execute_bash","grep","glob","code","web_search","web_fetch","knowledge","thinking","todo_list"],"allowedTools":[%s]}\n' \
+      "$name" \
+      "$(echo "$desc" | sed 's/"/\\"/g')" \
+      "$prompt_escaped" \
+      "$allowed" \
+      > "$out/magic-${name}.json"
+    count=$((count + 1))
+  done
+  echo "Kiro agents: $count JSON files → integrations/kiro/agents/"
+}
+
+convert_opencode_commands() {
+  local out="$REPO/integrations/opencode/commands"
+  mkdir -p "$out"
+
+  cat > "$out/magic-review.md" <<'EOF'
+---
+description: Run a full Magic Powers code review on recent changes
+---
+Review my recent changes using the magic-powers systematic approach:
+1. Check correctness, edge cases, and logic errors
+2. Identify security concerns (OWASP top 10)
+3. Review performance and scalability
+4. Verify project conventions are followed
+5. Suggest concrete improvements with code examples
+EOF
+
+  cat > "$out/magic-debug.md" <<'EOF'
+---
+description: Start a systematic debugging session using Magic Powers methodology
+---
+Help me debug this issue using systematic-debugging methodology:
+1. Reproduce the problem and confirm exact symptoms
+2. Form hypotheses about root cause
+3. Binary search to isolate the failure point
+4. Identify root cause before proposing any fix
+5. Propose minimal, targeted fix with verification steps
+EOF
+
+  cat > "$out/magic-plan.md" <<'EOF'
+---
+description: Create a structured implementation plan before coding
+---
+Before writing any code, create a structured implementation plan:
+1. Clarify requirements and constraints
+2. Identify files to create/modify
+3. Break into numbered steps with dependencies
+4. Flag risks and edge cases
+5. Define success criteria
+Only output the plan — no implementation yet.
+EOF
+
+  echo "OpenCode: 3 commands → integrations/opencode/commands/"
+}
+
+convert_opencode() {
+  mkdir -p "$REPO/integrations/opencode"
+  { echo "# Magic Powers — OpenCode Instructions"
+    echo ""
+    echo "Magic Powers provides specialized agents and workflow skills for cost-optimized AI development."
+    echo ""
+    echo "## Agents"
+    echo ""
+    echo "Invoke with \`@magic-<name>\` or describe your task and OpenCode picks the right one."
+    echo ""
+    for f in $(find_agents); do
+      local name=$(get_field "$f" name)
+      local desc=$(get_field "$f" description)
+      echo "- **@magic-${name}**: ${desc}"
+    done
+    echo ""
+    echo "## Skills"
+    echo ""
+    echo "Reference these workflows explicitly in your prompts when needed."
+    echo ""
+    for f in $(find_skills); do
+      local name=$(get_field "$f" name)
+      local desc=$(get_field "$f" description)
+      echo "### ${name}"
+      echo ""
+      echo "_${desc}_"
+      echo ""
+      strip_frontmatter "$f"
+      echo ""
+    done
+  } > "$REPO/integrations/opencode/AGENTS.md"
+  convert_opencode_commands
+  echo "OpenCode: AGENTS.md → integrations/opencode/AGENTS.md"
+}
+
+case "${1:-all}" in
+  all)     convert_cursor; convert_copilot; convert_aider; convert_windsurf; convert_gemini; convert_codex; convert_kiro; convert_kiro_agents; convert_opencode ;;
+  cursor)  convert_cursor ;;
+  copilot) convert_copilot ;;
+  aider)   convert_aider ;;
+  windsurf) convert_windsurf ;;
+  gemini)  convert_gemini ;;
+  codex)   convert_codex ;;
+  kiro)        convert_kiro ;;
+  kiro-agents) convert_kiro_agents ;;
+  opencode) convert_opencode ;;
+  *) echo "Usage: $0 [all|cursor|copilot|aider|windsurf|gemini|codex|kiro|opencode]"; exit 1 ;;
+esac
+echo "Done! Run ./scripts/install.sh to install into your tool."

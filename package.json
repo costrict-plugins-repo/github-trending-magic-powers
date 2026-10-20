@@ -1,0 +1,25 @@
+{
+  "name": "magic-powers",
+  "version": "2.5.1",
+  "description": "Cost-optimized Claude Code plugin — 232 skills, 16 built-in agents + 33 optional, 9-tool support. Built for all professional roles shipping fast.",
+  "type": "module",
+  "bin": {
+    "magic-powers": "./bin/magic-powers.js"
+  },
+  "files": [
+    "agents/",
+    "skills/",
+    "commands/",
+    "hooks/",
+    ".claude-plugin/",
+    "scripts/",
+    "bin/",
+    "SECURITY.md"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kienbui1995/magic-powers.git"
+  },
+  "keywords": ["claude-code", "ai", "agents", "skills", "cost-optimization", "cursor", "codex", "kiro", "agentic-ai", "llm", "rag"],
+  "license": "MIT"
+}

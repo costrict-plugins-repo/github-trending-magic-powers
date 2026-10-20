@@ -1,0 +1,273 @@
+# Optional Skills Catalog
+
+Browse and install skills with `/install-skills`. Install recommended packs during `/setup`.
+
+## How It Works
+
+Skills live in `magic-powers/skills/`. When installed, they're copied to `.claude/skills/<name>/SKILL.md` in your project and auto-loaded into every Claude session — no manual invocation needed.
+
+## Categories
+
+### 🎯 Product (6 skills)
+| Skill | Install Name | Description |
+|-------|-------------|-------------|
+| User Story Writing | `user-story-writing` | Write user stories with acceptance criteria |
+| Roadmap Planning | `roadmap-planning` | Quarterly planning, ICE/MoSCoW prioritization |
+| Stakeholder Communication | `stakeholder-communication` | Status updates, exec presentations |
+| Product Metrics | `product-metrics` | Define KPIs, measure product health |
+| Competitive Analysis | `competitive-analysis` | Research competitors, position features |
+| Feedback Synthesis | `feedback-synthesis` | Synthesize user feedback into actionable insights |
+
+### 📊 Data/ML (9 skills)
+| Skill | Install Name | Description |
+|-------|-------------|-------------|
+| Data Pipeline Design | `data-pipeline-design` | ETL/ELT patterns, streaming vs batch |
+| Data Quality | `data-quality` | Validate and test data pipelines |
+| Data Modeling | `data-modeling` | Schema design for analytics |
+| ML Experiment Tracking | `ml-experiment-tracking` | Experiment management, reproducibility |
+| Model Evaluation | `model-evaluation` | Metrics, bias detection, validation |
+| Feature Engineering | `feature-engineering` | Feature selection, transformation patterns |
+| MLOps Deployment | `mlops-deployment` | Model serving, canary/shadow releases |
+| Model Monitoring | `model-monitoring` | Drift detection, retraining triggers |
+| Training Pipeline | `training-pipeline` | Orchestration, versioning |
+
+### ⚙️ Platform/SRE (6 skills)
+| Skill | Install Name | Description |
+|-------|-------------|-------------|
+| SLO/SLI Design | `slo-sli-design` | Define SLOs, SLIs, error budgets |
+| Capacity Planning | `capacity-planning` | Load projections, scaling decisions |
+| Chaos Engineering | `chaos-engineering` | Resilience testing patterns |
+| On-Call Runbook | `on-call-runbook` | Write actionable runbooks |
+| Cloud Cost Review | `cloud-cost-review` | Rightsizing, reserved instances, waste |
+| Performance Benchmarking | `performance-benchmarking` | Measure baselines, compare before/after |
+
+### 🎨 Design/UX (4 skills)
+| Skill | Install Name | Description |
+|-------|-------------|-------------|
+| UX Audit | `ux-audit` | Heuristic evaluation of existing UX |
+| Design System Audit | `design-system-audit` | Component consistency, token review |
+| User Research | `user-research` | Interview guides, usability testing |
+| Design Handoff | `design-handoff` | Specs, assets, developer communication |
+
+### 👥 Team Processes (9 skills)
+| Skill | Install Name | Description |
+|-------|-------------|-------------|
+| Sprint Planning | `sprint-planning` | Backlog refinement, capacity, sprint goals |
+| Sprint Retrospective | `sprint-retrospective` | Formats, actionable outcomes |
+| Team Onboarding | `team-onboarding` | Dev env setup, codebase intro, first PR |
+| ADR Writing | `adr-writing` | Architecture Decision Records |
+| Incident Postmortem | `incident-postmortem` | Blameless postmortem, follow-ups |
+| Tech Debt Triage | `tech-debt-triage` | Prioritize, track, allocate time |
+| Knowledge Transfer | `knowledge-transfer` | Documentation, pairing, handoffs |
+| Experiment Tracking | `experiment-tracking` | A/B tests, hypothesis management |
+| Support Playbook | `support-playbook` | Triage support tickets, escalation paths |
+
+### 📣 Marketing (8 skills)
+| Skill | Install Name | Description |
+|-------|-------------|-------------|
+| Content Strategy | `content-strategy` | Content calendar, audience targeting, formats |
+| SEO Optimization | `seo-optimization` | On-page SEO, keyword strategy, technical SEO |
+| Social Media Planning | `social-media-planning` | Platform-specific strategy, scheduling |
+| Growth Hacking | `growth-hacking` | Viral loops, activation, retention experiments |
+| Email Marketing | `email-marketing` | Drip campaigns, segmentation, copywriting |
+| Analytics Reporting | `analytics-reporting` | Marketing metrics, attribution, dashboards |
+| Brand Voice | `brand-voice` | Tone guidelines, messaging consistency |
+| Launch Planning | `launch-planning` | GTM strategy, launch checklist, coordination |
+
+### 💼 Sales (5 skills)
+| Skill | Install Name | Description |
+|-------|-------------|-------------|
+| Discovery Call | `discovery-call` | Qualification framework, pain discovery, MEDDIC |
+| Proposal Writing | `proposal-writing` | Structure, pricing, value proposition |
+| Pipeline Management | `pipeline-management` | Stage definitions, hygiene, forecasting |
+| Sales Coaching | `sales-coaching` | Call review, objection handling, ramp plans |
+| Deal Strategy | `deal-strategy` | Multi-stakeholder navigation, negotiation |
+
+### 🧪 Testing (5 skills)
+| Skill | Install Name | Description |
+|-------|-------------|-------------|
+| API Contract Testing | `api-contract-testing` | Schema validation, breaking change detection |
+| Performance Testing | `performance-testing` | Load testing, profiling, bottleneck analysis |
+| Accessibility Audit | `accessibility-audit` | WCAG compliance, assistive tech testing |
+| Test Strategy | `test-strategy` | Coverage plan, risk-based testing, pyramid |
+| Quality Gates | `quality-gates` | Definition of done, release criteria |
+
+### 🎮 Game Dev (5 skills)
+| Skill | Install Name | Description |
+|-------|-------------|-------------|
+| Game Design Doc | `game-design-doc` | GDD structure, mechanics, player loops |
+| Level Design | `level-design` | Flow, pacing, challenge curves |
+| Narrative Design | `narrative-design` | Story structure, branching dialogue, lore |
+| Game Audio | `game-audio` | Sound design brief, music direction |
+| Technical Art | `technical-art` | Shader brief, performance budgets, LOD strategy |
+
+### 🌐 Spatial Computing (3 skills)
+| Skill | Install Name | Description |
+|-------|-------------|-------------|
+| XR Interface Design | `xr-interface-design` | XR UX patterns, interaction modes |
+| Spatial UX | `spatial-ux` | 3D layout, depth cues, comfort guidelines |
+| visionOS Patterns | `visionos-patterns` | visionOS spatial design conventions |
+
+### 🔬 Specialist (7 skills)
+| Skill | Install Name | Description |
+|-------|-------------|-------------|
+| Legal Compliance | `legal-compliance` | GDPR, CCPA, SOC2, HIPAA review |
+| Financial Modeling | `financial-modeling` | Unit economics, forecasting, projections |
+| Developer Advocacy | `developer-advocacy` | API docs, tutorials, devrel content |
+| Solutions Architecture | `solutions-architecture` | Pre-sales architecture, integration design |
+| Blockchain Audit | `blockchain-audit` | Smart contract review, web3 security |
+| HR & People Ops | `hr-people-ops` | Hiring, performance reviews, culture |
+| Technical Documentation | `technical-documentation` | API docs, runbooks, user guides |
+
+## Role → Recommended Packs
+
+| Role | Recommended Skill Packs |
+|------|------------------------|
+| Solo Builder | Product + Platform/SRE |
+| Frontend Developer | Design/UX + Testing |
+| Backend Developer | Platform/SRE + Testing |
+| Product Manager | Product + Team Processes |
+| Team Lead | Team Processes + Product |
+| Data Scientist / ML Engineer | Data/ML |
+| Data Engineer | Data/ML + Platform/SRE |
+| SRE / Platform Engineer | Platform/SRE + Team Processes |
+| Product Designer | Design/UX + Product |
+| Marketer / Growth | Marketing |
+| Sales / BD | Sales + solutions-architecture |
+| Game Developer | Game Dev |
+
+---
+
+## ☁️ Cloud Divisions (NEW — v1.2.0)
+
+Role-specific agents and skills aligned to official cloud professional certifications.
+Install via `/install-skills` → Category 12.
+
+### GCP Division (7 agents + 14 skills)
+
+**Target certs:** GCP Professional Cloud certifications (2025/2026 exam guides)
+
+| Agent | Certification | Key Skills |
+|-------|--------------|------------|
+| `@gcp-data-engineer` | Professional Data Engineer (GCP-PDE) | bigquery-optimization, dataflow-pipeline, pubsub-messaging, cloud-storage, data-quality-validation, vertex-ai-mlops |
+| `@gcp-cloud-developer` | Professional Cloud Developer | cloud-run-functions, gke-kubernetes, cloud-iam, cloud-build-deploy |
+| `@gcp-network-engineer` | Professional Cloud Network Engineer | cloud-networking, cloud-iam, vpc-service-controls |
+| `@gcp-ml-engineer` | Professional Machine Learning Engineer | vertex-ai-mlops, bigquery-optimization, dataflow-pipeline, data-quality-validation |
+| `@gcp-devops-engineer` | Professional Cloud DevOps Engineer | cloud-build-deploy, cloud-monitoring, cloud-iam, gke-kubernetes |
+| `@gcp-security-engineer` | Professional Cloud Security Engineer | cloud-iam, cloud-networking, vpc-service-controls, security-command-center |
+| `@gcp-cloud-architect` | Professional Cloud Architect (**Opus**) | all 14 GCP skills |
+
+### AWS Division (7 agents + 14 skills)
+
+**Target certs:** AWS Professional/Associate certifications (2025/2026 exam guides)
+
+| Agent | Certification | Key Skills |
+|-------|--------------|------------|
+| `@aws-data-engineer` | Data Engineer Associate (DEA-C01) | glue-etl, kinesis-streaming, redshift-optimization, s3-best-practices, dynamodb-design, cloudwatch-monitoring, lake-formation-governance |
+| `@aws-cloud-developer` | Developer Associate (DVA-C02) | lambda-serverless, iam-security, codepipeline-cicd, cloudwatch-monitoring |
+| `@aws-network-engineer` | Advanced Networking Specialty (ANS-C01) | vpc-networking, cloudwatch-monitoring, iam-security |
+| `@aws-ml-engineer` | ML Engineer Associate (MLA-C01, NEW) | sagemaker-mlops, glue-etl, cloudwatch-monitoring |
+| `@aws-devops-engineer` | DevOps Engineer Professional (DOP-C02) | codepipeline-cicd, eks-kubernetes, cloudwatch-monitoring, iam-security |
+| `@aws-security-engineer` | Security Specialty (SCS-C02) | guardduty-security, vpc-networking, iam-security, s3-best-practices |
+| `@aws-solutions-architect` | Solutions Architect Professional (SAP-C02, **Opus**) | all 14 AWS skills |
+
+### Azure Division (7 agents + 14 skills)
+
+**Target certs:** Azure Associate/Expert certifications (2025/2026 exam guides — updated)
+
+| Agent | Certification | Key Skills |
+|-------|--------------|------------|
+| `@azure-data-engineer` | Fabric Data Engineer (DP-700, NEW) | fabric-lakehouse, dataflow-gen2, fabric-pipelines, eventstreams, fabric-governance, fabric-monitoring |
+| `@azure-cloud-developer` | AI Cloud Developer (AI-200, NEW) | azure-functions, azure-ad-entra, azure-devops-pipelines, azure-monitor, azure-openai |
+| `@azure-network-engineer` | Network Engineer Associate (AZ-700) | azure-networking, azure-ad-entra |
+| `@azure-ai-engineer` | AI Engineer Associate (AI-102) | azure-openai, azure-ad-entra, fabric-lakehouse |
+| `@azure-devops-engineer` | DevOps Engineer Expert (AZ-400) | azure-devops-pipelines, azure-monitor, fabric-governance, aks-kubernetes |
+| `@azure-security-engineer` | Cloud & AI Security (SC-500, NEW) | azure-ad-entra, azure-networking, microsoft-sentinel, azure-monitor |
+| `@azure-solutions-architect` | Solutions Architect Expert (AZ-305, **Opus**) | all 14 Azure skills |
+
+---
+
+## 📊 Amplitude Division (NEW — v1.4.0)
+
+Product analytics agents and skills powered by the Amplitude MCP server.
+Install via `/install-skills` → Category 13. **Requires Amplitude MCP configured.**
+
+### 5 Agents + 26 Skills
+
+| Agent | Role | Key Skills |
+|-------|------|-----------|
+| `@amplitude-analyst` | PM / General Analyst | create-chart, analyze-chart, create-dashboard, analyze-dashboard, daily-brief, weekly-brief, what-would-lenny-do |
+| `@amplitude-experimenter` | Growth / Experimentation | analyze-experiment, discover-opportunities, compare-user-journeys, analyze-account-health, analyze-feedback |
+| `@amplitude-engineer` | Data Engineer / Dev | diff-intake, discover-event-surfaces, discover-analytics-patterns, instrument-events, add-analytics-instrumentation, taxonomy |
+| `@amplitude-ux-researcher` | UX / Support | debug-replay, replay-ux-audit, diagnose-errors, monitor-reliability |
+| `@amplitude-ai-monitor` | AI/LLM Analytics | analyze-ai-topics, investigate-ai-session, monitor-ai-quality, review-agent-insights |
+
+**Skills based on:** [Amplitude mcp-marketplace](https://github.com/amplitude/mcp-marketplace) (official Amplitude skills, adapted to magic-powers format)
+
+---
+
+## 🧩 Browser Extension Division (NEW — v1.5.0)
+
+Skills and agent for developing and publishing Chrome/Firefox browser extensions.
+Install via `/install-skills` → Category 14.
+
+### 1 Agent + 9 Skills
+
+| | |
+|--|--|
+| **Agent** | `@browser-extension-developer` (Sonnet) |
+| **Skills** | manifest-v3, content-scripts, extension-apis, extension-ui, extension-security, cross-browser-compat, extension-testing, chrome-store-publishing, firefox-publishing |
+
+**Use for:** Manifest V3 architecture, content scripts, extension APIs (storage/tabs/alarms), popup/options/side panel UI, Chrome Web Store publishing, Firefox AMO publishing, Playwright testing.
+
+---
+
+## 🚀 Solo AI Builder Division (NEW — v2.0.0)
+
+Business skills for solo AI founders — from idea to paying customers.
+Install via `/install-skills` → Category 16.
+
+| Skill | Purpose |
+|-------|---------|
+| `ai-product-validation` | Validate problem BEFORE building — Reddit mining, interviews, fake door test |
+| `ai-product-positioning` | Differentiation, moat score (0-12), outcome messaging, ICP sharpening |
+| `solo-founder-gtm` | GTM for 1 person <5h/week — Twitter/Reddit/PH + AI-powered outreach |
+| `ai-product-monetization` | LLM cost accounting, hybrid pricing, unit economics, freemium design |
+| `vibe-coding` | 4-hour prototypes with Bolt/v0/Cursor — when to vibe vs spec |
+| `ai-product-retention` | Stickiness framework, habit loops, activation optimization, AI-specific metrics |
+| `ai-data-moat` | Data defensibility, fine-tune vs RAG decision, dataset building strategy |
+
+**Agent:** `@solo-ai-builder` — CEO-in-a-box across all stages (idea → launch → retain)
+
+---
+
+## 🖥️ Claude Code Division (NEW — v2.0.0)
+
+Skills for leveraging Claude Code's native built-in features.
+Install via `/install-skills` → Category 17.
+
+| Skill | Purpose |
+|-------|---------|
+| `claude-md-authoring` | Write effective CLAUDE.md — project context, conventions, Do Not rules |
+| `claude-hooks` | Configure PreToolUse/PostToolUse/Stop hooks for automation and safety |
+| `claude-mcp-setup` | Connect MCP servers (DB, GitHub, APIs) — tool descriptions that work |
+| `claude-memory` | Auto-memory system — what to save, MEMORY.md index, memory types |
+| `claude-project-settings` | .claude/settings.json — permissions, model routing, team vs personal |
+
+---
+
+## 🎯 Workflow Optimization Division (NEW — v2.1.0)
+
+Agents and skills for optimizing Claude Code workflow — session management, structured templates, and model routing.
+Install via `/install-skills` → Category 18. **Recommended for ALL users.**
+
+| Component | Type | Purpose |
+|-----------|------|---------|
+| `@workflow-orchestrator` | Agent (Sonnet) | Run feature/bugfix/refactor/research/incident templates end-to-end |
+| `@workflow-session` | Agent (Haiku) | /session-start (load context) and /session-end (save progress + WIP commit) |
+| `@workflow-model-advisor` | Agent (Haiku) | Analyze any task → recommend Haiku/Sonnet/Opus with cost estimate |
+| `workflow-templates` | Skill | 5 template definitions with phase sequences and model assignments |
+| `session-lifecycle` | Skill | Session start/end checklist, memory patterns, WIP commit format |
+| `model-selection-guide` | Skill | Decision tree: task → Haiku/Sonnet/Opus with cost estimates |
+
+**New commands:** `/session-start`, `/session-end`, `/workflow [type] "task"`

@@ -1,0 +1,15 @@
+{
+  "name": "magic-powers",
+  "description": "Cost-optimized Claude Code plugin — 16 built-in agents + 33 optional agents (Cloud/Amplitude/AI/ADO/Solo divisions via /install-skills), 232 workflow skills, and 15 slash commands. Run /setup to get started.",
+  "version": "2.5.1",
+  "author": {
+    "name": "kienbui1995"
+  },
+  "homepage": "https://magic-powers.pmai.space",
+  "repository": "https://github.com/kienbui1995/magic-powers",
+  "license": "MIT",
+  "keywords": ["agents", "skills", "model-routing", "cost-optimization", "multi-tool", "agentic-ai", "llm", "rag", "prompt-engineering"],
+  "commands": "./commands/",
+  "agents": "./agents/",
+  "hooks": "./hooks/hooks.json"
+}
